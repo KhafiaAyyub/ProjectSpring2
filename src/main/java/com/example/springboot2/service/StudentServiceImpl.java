@@ -2,6 +2,10 @@ package com.example.springboot2.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.example.springboot2.entity.Student;
@@ -49,10 +53,10 @@ public class StudentServiceImpl implements StudentService{
 		repo.deleteById(id);
 
 	}
- 
-	
+
+
 	//Spring Data JPA
-	
+
 	@Override
 	public List<Student> findByName(String name) {
 		return  repo.findByName(name);
@@ -65,15 +69,52 @@ public class StudentServiceImpl implements StudentService{
 
 	@Override
 	public List<Student> findByAgeGreaterThan(int age) {
-	    return repo.findByAgeGreaterThan(age);
+		return repo.findByAgeGreaterThan(age);
 
 	}
 
 	//findByNameContaining() -  performs LIKE %keyword% search
 	@Override
 	public List<Student> findByNameContaining(String prefix) {
-	    return repo.findByNameContaining(prefix);
+		return repo.findByNameContaining(prefix);
 
+	}
+
+
+	//JPQL
+
+	@Override
+	public List<Student> searchByExactName(String name) {
+		return repo.searchByExactName(name);
+	}
+
+	@Override
+	public List<Student> searchByNameLike(String keyword) {
+		return repo.searchByNameLike(keyword);
+
+	}
+
+	@Override
+	public List<Student> sortByNameAsc() {
+		return repo.sortByNameAsc();
+
+	}
+
+	@Override
+	public Long totalStudentsCount() {
+		return repo.totalStudentsCount();
+
+	}
+
+	//Pagination
+	//Pageable -> page number + page size + sorting
+	
+	
+	@Override
+	public Page<Student> searchStudents(String keyword, int page, int size, String sortBy) {
+		Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy)); //This builds the pagination object
+
+		return repo.findByNameContaining(keyword, pageable);
 	}
 
 }
