@@ -1,5 +1,21 @@
 package com.example.springboot2.service;
 
-public class StudentService {
+import java.util.List;
+
+import com.example.springboot2.entity.Student;
+
+public interface StudentService {
+
+	Student createStudent(Student student);
+
+    List<Student> getAllStudents();
+
+    Student getById(Long id);
+
+    Student updateStudent(Long id, Student student);
+
+    void deleteStudent(Long id);
+
+
 
 }

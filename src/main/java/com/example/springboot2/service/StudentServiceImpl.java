@@ -10,40 +10,44 @@ import com.example.springboot2.repository.StudentRepository;
 @Service
 public class StudentServiceImpl implements StudentService{
 
+	//It will store  object of StudentRepository.
 	private final StudentRepository repo ;
-	
-	 public StudentServiceImpl(StudentRepository repo) {
-	        this.repo = repo;
-	    }
-	
+
+	//Spring Dependency Injection
+	//
+	public StudentServiceImpl(StudentRepository repo) {
+		this.repo = repo;
+	}
+
 	@Override
 	public Student createStudent(Student student) {
-		// TODO Auto-generated method stub
-		return null;
+		return repo.save(student);
 	}
 
 	@Override
 	public List<Student> getAllStudents() {
-		// TODO Auto-generated method stub
-		return null;
+		return repo.findAll();
 	}
 
 	@Override
 	public Student getById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return repo.findById(id).orElseThrow(() -> new RuntimeException("Student not found") );
 	}
 
 	@Override
 	public Student updateStudent(Long id, Student student) {
-		// TODO Auto-generated method stub
-		return null;
+		Student existing = getById(id);
+		existing.setName(student.getName());
+		existing.setAge(student.getAge());
+		existing.setEmail(student.getEmail());
+		return repo.save(existing);
+
 	}
 
 	@Override
 	public void deleteStudent(Long id) {
-		// TODO Auto-generated method stub
-		
+		repo.deleteById(id);
+
 	}
 
 }
