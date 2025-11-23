@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.springboot2.entity.Student;
 import com.example.springboot2.service.StudentService;
 
+import jakarta.validation.Valid;
+
 @RestController  // controller + response and Return JSON responses automatically
 @RequestMapping("/api/students")  //All api starts with this
 public class StudentController {
@@ -24,8 +26,9 @@ public class StudentController {
 		this.service = service;
 	}
 
+//	@Valid -> It triggers validation before calling service layer.
 	@PostMapping
-	public Student createStudent(@RequestBody Student student) {
+	public Student createStudent(@Valid @RequestBody Student student) {
 		return service.createStudent(student);
 	}
 
