@@ -13,15 +13,15 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name="students")
+@Entity   //tells hibernate that this class represents a datatable table
+@Table(name="students") //table name
 public class Student {
 
-	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id //primary key
+    @GeneratedValue(strategy = GenerationType.IDENTITY)  //auto increment
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false) //cannot be empty
     private String name;
 
     private int age;

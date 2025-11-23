@@ -30,13 +30,13 @@ public class StudentServiceImpl implements StudentService{
 	}
 
 	@Override
-	public Student getById(Long id) {
+	public Student getById(Long id) {  //if not found ->> throw exception
 		return repo.findById(id).orElseThrow(() -> new RuntimeException("Student not found") );
 	}
 
 	@Override
 	public Student updateStudent(Long id, Student student) {
-		Student existing = getById(id);
+		Student existing = getById(id); //first find the existing object -> then update the values
 		existing.setName(student.getName());
 		existing.setAge(student.getAge());
 		existing.setEmail(student.getEmail());
