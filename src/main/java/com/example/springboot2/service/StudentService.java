@@ -13,5 +13,12 @@ public interface StudentService {
 	void deleteStudent(Long id);
 
 
+	//Spring Data JPA
+	List<Student> findByName(String name);
+	Student findByEmail(String email);
+	List<Student> findByAgeGreaterThan(int age);
+	List<Student> findByNameContaining(String prefix);
+
+	
 
 }

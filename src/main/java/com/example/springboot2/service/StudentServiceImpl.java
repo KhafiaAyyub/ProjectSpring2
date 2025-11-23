@@ -49,5 +49,31 @@ public class StudentServiceImpl implements StudentService{
 		repo.deleteById(id);
 
 	}
+ 
+	
+	//Spring Data JPA
+	
+	@Override
+	public List<Student> findByName(String name) {
+		return  repo.findByName(name);
+	}
+
+	@Override
+	public Student findByEmail(String email) {
+		return repo.findByEmail(email);
+	}
+
+	@Override
+	public List<Student> findByAgeGreaterThan(int age) {
+	    return repo.findByAgeGreaterThan(age);
+
+	}
+
+	//findByNameContaining() -  performs LIKE %keyword% search
+	@Override
+	public List<Student> findByNameContaining(String prefix) {
+	    return repo.findByNameContaining(prefix);
+
+	}
 
 }

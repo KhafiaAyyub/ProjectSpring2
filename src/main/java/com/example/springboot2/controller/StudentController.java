@@ -2,6 +2,8 @@ package com.example.springboot2.controller;
 
 import java.util.List;
 
+import org.hibernate.query.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.springboot2.entity.Student;
@@ -52,6 +55,39 @@ public class StudentController {
 		service.deleteStudent(id);
 		return "Deleted Successfully";
 	}
+	
+	//Spring Data JPA
+	@GetMapping("/search/name/{name}")
+	public List<Student> findByName(@PathVariable String name) {
+	    return service.findByName(name);
+	}
+
+	@GetMapping("/search/email/{email}")
+	public Student findByEmail(@PathVariable String email) {
+	    return service.findByEmail(email);
+	}
+
+	@GetMapping("/search/age/{age}")
+	public List<Student> findByAgeGreater(@PathVariable int age) {
+	    return service.findByAgeGreaterThan(age);
+	}
+
+	@GetMapping("/search/prefix/{k}")
+	public List<Student> findByKeyword(@PathVariable String k) {
+	    return service.findByNameContaining(k);
+	}
+
+	
+	
+//	@GetMapping("/page")
+//	public Page<Student> paginate(
+//	        @RequestParam int page,
+//	        @RequestParam int size) {
+//
+//	    return repo.findAll(PageRequest.of(page, size));
+//	}
+
+	
 
 }
 
